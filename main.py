@@ -1,10 +1,13 @@
+from typing import List
+from typing import Callable
+
 
 print('hello world')
 
 
 def ex1(name: str, surname: str) -> str:
-    str = name[0] + "." + surname
-    return str
+    stri = name[0] + "." + surname
+    return stri
 
 
 print(ex1("j", "kowalski"))
@@ -28,9 +31,28 @@ def ex3(first: int, second: int, age: int ) -> int:
 print(ex3(20,21, 21))
 
 
-def ex4(name: str, surname: str, foo):
+def ex4(name: str, surname: str, foo: Callable) -> str:
     return foo(name, surname)
 
 
 print(ex4("jae", "kowalski", ex2))
+
+
+def ex5(divident: int, dividor: int ):
+    if divident >= 0 and dividor > 0:
+        return divident / dividor
+
+
+print(ex5(8, 2))
+
+#ex6
+
+a: int = 0;
+list: List[int]
+
+while a < 100:
+    tmp: int = 0
+    tmp = int(input("Add a number: "))
+    a += tmp
+    list.append(tmp)
 
