@@ -15,6 +15,9 @@ class LinkedList:
             self.tail = newNode
 
     def append(self, value) -> None:
+        if len(self) == 0:
+            self.push(value)
+            return
         newNode: Node = Node(value)
         self.tail.next = newNode
         self.tail = newNode
