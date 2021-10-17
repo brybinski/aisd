@@ -1,10 +1,10 @@
-from typing import List
-from typing import Tuple
 from typing import Callable
+from typing import Tuple
 
 print('hello world')
 
 
+# noinspection SpellCheckingInspection
 def ex1(name: str, surname: str) -> str:
     stri = name[0] + "." + surname
     return stri
@@ -38,6 +38,7 @@ def ex4(name: str, surname: str, foo: Callable) -> str:
 print(ex4("jae", "kowalski", ex2))
 
 
+# noinspection SpellCheckingInspection
 def ex5(divident: int, dividor: int):
     if divident >= 0 and dividor > 0:
         return divident / dividor

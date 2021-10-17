@@ -2,25 +2,27 @@ from typing import Any
 from Node import Node
 
 
+# noinspection SpellCheckingInspection,PyTypeChecker
 class LinkedList:
     def __init__(self) -> None:
         self.head: Node = None
         self.tail: Node = self.head
 
+    # noinspection SpellCheckingInspection
     def push(self, value: Any) -> None:
-        newNode: Node = Node(value)
-        newNode.next = self.head
-        self.head = newNode
+        newnd: Node = Node(value)
+        newnd.next = self.head
+        self.head = newnd
         if self.tail is None:
-            self.tail = newNode
+            self.tail = newnd
 
     def append(self, value) -> None:
         if len(self) == 0:
             self.push(value)
             return
-        newNode: Node = Node(value)
-        self.tail.next = newNode
-        self.tail = newNode
+        newnd: Node = Node(value)
+        self.tail.next = newnd
+        self.tail = newnd
 
     def __str__(self) -> str:
         if self.head is not None:
@@ -33,9 +35,9 @@ class LinkedList:
                     tmp = tmp.next
                     result += " -> " + str(tmp.value)
 
-            return(result)
+            return result
         else:
-            return("None")
+            return "None"
 
     def __len__(self) -> int:
         i: int = 1
@@ -48,6 +50,7 @@ class LinkedList:
             tmp = tmp.next
         return i
 
+    # noinspection PyMethodMayBeStatic
     def insert(self, value: Any, after: Node) -> None:
         tmp = after.next
         after.next = Node(value)

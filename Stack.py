@@ -1,6 +1,7 @@
 from LinkedList import LinkedList
 from Node import Node
-from typing import Any, List
+from typing import Any
+
 
 class Stack:
 
@@ -18,7 +19,7 @@ class Stack:
         if length != 0:
             result: Any = self.storage.tail.value
             if length > 1:
-                self.storage.tail = self.storage.node(len(self.storage)-2)
+                self.storage.tail = self.storage.node(len(self.storage) - 2)
                 return result
 
             self.storage.tail = None
@@ -30,13 +31,9 @@ class Stack:
 
         if len(self) != 0:
             result: str = str(self.storage.head.value)
-
-            if len(self) != 1:
-                nxt: Node = self.storage.head
-                while nxt != self.storage.tail:
-                    nxt = nxt.next
-                    result = str(nxt.value) + "\n" + result
+            nxt: Node = self.storage.head
+            while nxt != self.storage.tail:
+                nxt = nxt.next
+                result = str(nxt.value) + "\n" + result
             return result
         return ""
-
-
