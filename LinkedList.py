@@ -8,7 +8,6 @@ class LinkedList:
         self.head: Node = None
         self.tail: Node = self.head
 
-    # noinspection SpellCheckingInspection
     def push(self, value: Any) -> None:
         newnd: Node = Node(value)
         newnd.next = self.head

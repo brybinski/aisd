@@ -1,5 +1,6 @@
 from Queue import Queue
 
+
 queue = Queue()
 assert len(queue) == 0
 
