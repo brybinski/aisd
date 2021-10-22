@@ -1,5 +1,5 @@
 from typing import Any
-from Node import Node
+from Lab02.Node import Node
 
 
 # noinspection SpellCheckingInspection,PyTypeChecker

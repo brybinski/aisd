@@ -1,4 +1,4 @@
-from Queue import Queue
+from Lab02.Queue import Queue
 
 
 queue = Queue()

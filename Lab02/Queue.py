@@ -1,5 +1,5 @@
-from LinkedList import LinkedList
-from Node import Node
+from Lab02.LinkedList import LinkedList
+from Lab02.Node import Node
 from typing import Any
 
 

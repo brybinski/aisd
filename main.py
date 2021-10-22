@@ -1,4 +1,4 @@
-from LinkedList import LinkedList
+from Lab02.LinkedList import LinkedList
 
 list_ = LinkedList()
 assert list_.head is None
