@@ -35,8 +35,21 @@ def factorial(n: int) -> int:
     return n * factorial(n-1)
 
 
-def prime(n: int, div=0) -> bool:
-    if n == 2:
+def prime(n: int, div=-1) -> bool:
+    if n <= 1:
+        return False
+    if div == 2 or n == 2:
         return True
-    if div != 0:
-        return 1
+
+    sqrt: float = math.sqrt(n)
+
+    if div == -1:
+        return prime(n, math.ceil(sqrt))
+
+    if n % div == 0:
+        return False
+
+    return prime(n, div-1)
+
+
+print(prime(4))
