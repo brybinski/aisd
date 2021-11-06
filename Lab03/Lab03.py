@@ -1,4 +1,4 @@
-
+import math
 
 
 def numbers(n: int) -> None:
@@ -38,7 +38,7 @@ def factorial(n: int) -> int:
 def prime(n: int, div=-1) -> bool:
     if n <= 1:
         return False
-    if div == 2 or n == 2:
+    if div == 1 or n == 2:
         return True
 
     sqrt: float = math.sqrt(n)
