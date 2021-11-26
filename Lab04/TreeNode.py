@@ -34,7 +34,7 @@ class TreeNode:
             for i in x.children:
                 queue.enqueue(i)
 
-    def search(self, value: Any) -> Union['TreeNode', List['TreeNode'], None]:
+    def search(self, value: Any) -> Union['TreeNode', None]:
         result: List[TreeNode] = []
 
         def search_foo(node: 'TreeNode'):
@@ -45,9 +45,13 @@ class TreeNode:
 
         if len(result) == 0:
             return None
-        elif len(result) == 1:
+        else:
             return result[0]
-        # else:        # This is for more than one node
+        # #This is for more than one node if ever needed it
+        # #ADD ", List['TreeNode']" to Union
+        # elif len(result) == 1:
+        #     return result[0]
+        # else:
         #     return result
 
     def __init__(self, value=None):

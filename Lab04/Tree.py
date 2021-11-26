@@ -1,7 +1,6 @@
 from typing import Any, List, Callable
 from Lab04.TreeNode import TreeNode
-import networkx as nx
-import matplotlib.pyplot as plt
+import treelib as tr
 
 
 class Tree:
@@ -27,23 +26,16 @@ class Tree:
         self.root.for_each_deep_first(visit)
 
     def show(self) -> None:
-        G = nx.Graph()
+        G = tr.Tree()
 
-        def add_node(node: 'TreeNode') -> None:
-            G.add_node(node.value)
-
+        G.create_node(str(self.root.value), str(self.root.value))
 
         def add_edge(node: 'TreeNode') -> None:
             for i in node.children:
-                G.add_edge(node.value, i.value)
+                G.create_node(str(i.value), str(i.value), parent=str(node.value))
 
-        self.for_each_deep_first(add_node)
-        self.for_each_deep_first(add_edge)
-
-        plt.subplot(121)
-        nx.draw(G, with_labels=True, font_weight='bold')
-        plt.show()
-        # TODO: igraph instead of networkx
+        self.for_each_level_order(add_edge)
+        G.show()
 
     def __init__(self, value=None):
         self.root = TreeNode(value)
@@ -69,11 +61,5 @@ trr.root.children[0].children[1].add(TreeNode('E'))
 trr.root.children[1].add(TreeNode('I'))
 trr.root.children[1].children[0].add(TreeNode('H'))
 
-
-def foo(tre: 'TreeNode'):
-    print(tre.value)
-
-
-trr.for_each_level_order(foo)
-
 trr.show()
+
