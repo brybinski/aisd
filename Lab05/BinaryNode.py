@@ -1,10 +1,14 @@
 from typing import Any, Callable, Optional
-
-
 class BinaryNode:
     value: Any
     left_child: 'BinaryNode'
     right_child: 'BinaryNode'
+
+    def min(self) -> 'BinaryNode':
+        if self.left_child.value > self.right_child.value:
+            return self.right_child
+        else:
+            return self.left_child
 
     def add_left_child(self, value: Any) -> None:
         self.left_child = BinaryNode(value)
@@ -49,7 +53,5 @@ class BinaryNode:
         return str(self.value)
 
 
-def foo(node: BinaryNode) -> None:
-    print(node)
 
 
