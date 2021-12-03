@@ -1,5 +1,5 @@
 from typing import Any, Callable, Optional
-from BinaryNode import BinaryNode
+from Lab05.BinaryNode  import BinaryNode
 import treelib as tr
 
 
@@ -16,18 +16,18 @@ class BinaryTree:
         self.root.traverse_pre_order(visit)
 
     def show(self) -> None:
-        G = tr.Tree()
+        g = tr.Tree()
 
-        G.create_node(str(self.root.value), str(self.root.value))
+        g.create_node(str(self.root.value), str(self.root.value))
 
         def add_edge(node: 'BinaryNode') -> None:
             if node.left_child is not None:
-                G.create_node(str(node.left_child.value), str(node.left_child.value), parent=str(node.value))
+                g.create_node(str(node.left_child.value), str(node.left_child.value), parent=str(node.value))
             if node.right_child is not None:
-                G.create_node(str(node.right_child.value), str(node.right_child.value), parent=str(node.value))
+                g.create_node(str(node.right_child.value), str(node.right_child.value), parent=str(node.value))
 
         self.traverse_pre_order(add_edge)
-        G.show()
+        g.show()
 
     def __init__(self, value: Optional = None, root: BinaryNode = None) -> None:
         if root is None:
