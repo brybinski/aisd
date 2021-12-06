@@ -1,8 +1,12 @@
 from typing import Any, Callable, Optional
+
+
 class BinaryNode:
+    last_id: int = -1
     value: Any
     left_child: 'BinaryNode'
     right_child: 'BinaryNode'
+    id: int
 
     def min(self) -> 'BinaryNode':
         if self.left_child.value > self.right_child.value:
@@ -48,6 +52,8 @@ class BinaryNode:
         self.value = value
         self.right_child = None
         self.left_child = None
+        self.id = BinaryNode.last_id +1
+        BinaryNode.last_id += 1
 
     def __str__(self):
         return str(self.value)

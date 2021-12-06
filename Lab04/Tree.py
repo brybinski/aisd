@@ -1,4 +1,5 @@
 from typing import Any, List, Callable
+from igraph import *
 from Lab04.TreeNode import TreeNode
 import treelib as tr
 
@@ -28,6 +29,7 @@ class Tree:
     def show(self) -> None:
         G = tr.Tree()
 
+
         G.create_node(str(self.root.value), str(self.root.value))
 
         def add_edge(node: 'TreeNode') -> None:
@@ -35,7 +37,19 @@ class Tree:
                 G.create_node(str(i.value), str(i.value), parent=str(node.value))
 
         self.for_each_level_order(add_edge)
+
         G.show()
+
+        g = Graph()
+        layout = g.layout("tree")
+
+        def add_e(node: 'TreeNode') -> None:
+            for i in node.children:
+                g.add_edge(node.value, i.value)
+
+        self.for_each_level_order(add_e)
+
+        plot(g, layout=layout)
 
     def __init__(self, value=None):
         self.root = TreeNode(value)
