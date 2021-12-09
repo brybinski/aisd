@@ -121,10 +121,3 @@ def horizontal_sum(tree: BinaryTree) -> List[Any]:
 
 test_list = horizontal_sum(tree)
 print(test_list)
-
-
-def wypisz(node: 'BinaryNode'):
-    print(node.value)
-
-
-tree.traverse_in_order(wypisz)
