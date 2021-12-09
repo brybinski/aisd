@@ -57,12 +57,12 @@ class Tree:
     def __len__(self):
         count: List[int] = [0]
 
-        def counter() -> None:
+        def counter(node: 'TreeNode') -> None:
             count[0] += 1
 
         self.for_each_level_order(counter)
 
-        return counter
+        return count[0]
 
 
 trr: 'Tree' = Tree('F')
@@ -75,5 +75,5 @@ trr.root.children[0].children[1].add(TreeNode('E'))
 trr.root.children[1].add(TreeNode('I'))
 trr.root.children[1].children[0].add(TreeNode('H'))
 
-trr.show()
+print(str(len(trr)))
 

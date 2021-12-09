@@ -9,6 +9,20 @@ from igraph import *
 class BinaryTree:
     root: BinaryNode
 
+    def assign(self) -> List[Any]:
+        iteration: List[int] = [0]
+        tmp: List[int] = [0]
+
+        result: List[('BinaryNode', int)] = []
+
+        def add_record(node: 'BinaryNode'):
+            if node is not None:
+                result.append([node, iteration[0]])
+                iteration[0] += 1
+
+        self.traverse_in_order(add_record)
+        return result
+
     def traverse_in_order(self, visit: Callable[[Any], None]) -> None:
         self.root.traverse_in_order(visit)
 
@@ -18,47 +32,34 @@ class BinaryTree:
     def traverse_pre_order(self, visit: Callable[[Any], None]) -> None:
         self.root.traverse_pre_order(visit)
 
-    def show(self) -> None:
-        G = tr.Tree()
-
-        G.create_node(str(self.root.value), str(self.root.value))
-
-        def add_edge(node: 'BinaryNode') -> None:
-            if node.left_child is not None:
-                G.create_node(str(node.left_child.value), str(node.left_child.value), parent=str(node.value))
-            if node.right_child is not None:
-                G.create_node(str(node.right_child.value), str(node.right_child.value), parent=str(node.value))
-
-        self.traverse_pre_order(add_edge)
-
-        G.show()
-
+    def show(self, label_color: str = "black", size: int = 30, color: str = "white") -> None:
         g = Graph(n=len(self), directed=True)
 
+        vertices: List[Any] = self.assign()
         edge_list: List[Tuple] = []
-        ver: List[int] = []
         labels: List[str] = [""] * len(self)
 
-        def add_e(node: 'TreeNode') -> None:
-            if node.left_child is not None:
-                edge_list.append((node.left_child.id, node.id))
-            if node.right_child is not None:
-                edge_list.append((node.right_child.id, node.id))
-            ver.append(node.id)
-            labels[node.id] = str(node.value)
+        def add_e(node: 'BinaryNode') -> None:
+            if node is not None:
+                parent: int = [v[1] for v in vertices if v[0] == node][0]
+                for i in node.left_child, node.right_child:
+                    if i is not None:
+                        child: int = [x[1] for x in vertices if x[0] == i][0]
+                        edge_list.append((child, parent))
+                labels[parent] = str(node.value)
 
         self.traverse_pre_order(add_e)
 
         g.vs["label"] = labels
-        g.vs["label_color"] = "black"
-        g.vs["size"] = 30
-        g.vs["color"] = "white"
-        print(edge_list)
+        g.vs["label_color"] = label_color
+        g.vs["size"] = size
+        g.vs["color"] = color
+
         g.add_edges(edge_list)
 
-        plot(g, layout=g.layout_reingold_tilford(mode="in", root=0))
+        plot(g, layout=g.layout_reingold_tilford(mode="in", root=[i for i in vertices if i[0] == self.root][0][1]))
 
-        # pycairo is much better than matplotlib
+        # plot but for matplotlib instead of pycairo
         # fig, ax = plt.subplots()
         # lay = g.layout_reingold_tilford(mode="in", root=0)
         # lay.rotate(180)
@@ -91,7 +92,7 @@ x.right_child.add_right_child(6)
 
 tree: BinaryTree = BinaryTree(root=x)
 
-#tree.show()
+tree.show()
 
 assert tree.root.value == 10
 
@@ -103,27 +104,45 @@ assert tree.root.left_child.left_child.is_leaf() is True
 
 
 def horizontal_sum(tree: BinaryTree) -> List[Any]:
-    tmp: List[('BinaryNode', int)] = []
+    assigned: List[('BinaryNode', int)] = []
 
-    def levelAssignment(node: 'BinaryNode', level: int = 0) -> None:
-        tmp.append((node, level))
+    # Here I am assigning each vertex of graph to a level
+    def level_assignment(node: 'BinaryNode', level: int = 0) -> None:
+        assigned.append((node, level))
         for i in node.left_child, node.right_child:
             if i is not None:
-                levelAssignment(i, level + 1)
+                level_assignment(i, level + 1)
 
-    levelAssignment(tree.root)
+    level_assignment(tree.root)
 
     max_level: int = 0
-    for i in tmp:
+    for i in assigned:
         if i[1] > max_level:
             max_level = i[1]
 
-    result: List[Any] = [tmp[0][0].value - tmp[0][0].value] * (max_level + 1)
-    for i in tmp:
-        result[i[1]] += i[0].value
+    result: List[Any] = [None] * (max_level + 1)
+    # this is longer than list comprehension
+    # but it works for str flawlessly
 
+    for i in range(0, max_level + 1):
+        tmp: Any = None
+        for ele in assigned:
+            if ele[1] == i:
+                if tmp is not None:
+                    tmp += ele[0].value
+                else:
+                    tmp = ele[0].value
+
+        result[i] = tmp
     return result
 
 
 test_list = horizontal_sum(tree)
 print(test_list)
+
+
+def wypisz(node: 'BinaryNode'):
+    print(node.value)
+
+
+tree.traverse_in_order(wypisz)
