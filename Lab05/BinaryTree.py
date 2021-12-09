@@ -121,7 +121,8 @@ def horizontal_sum(tree: BinaryTree) -> List[Any]:
             max_level = i[1]
 
     result: List[Any] = [None] * (max_level + 1)
-    # this is longer than list comprehension
+
+    # I know this is longer than list comprehension
     # but it works for str flawlessly
 
     for i in range(0, max_level + 1):
