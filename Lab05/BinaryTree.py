@@ -104,37 +104,18 @@ assert tree.root.left_child.left_child.is_leaf() is True
 
 
 def horizontal_sum(tree: BinaryTree) -> List[Any]:
-    assigned: List[('BinaryNode', int)] = []
+    result: List[Any] = []
 
-    # Here I am assigning each vertex of graph to a level
-    def level_assignment(node: 'BinaryNode', level: int = 0) -> None:
-        assigned.append((node, level))
+    def level_assignment(node: 'TreeNode', level: int = 0) -> None:
+        if len(result) <= level:
+            result.append(node.value)
+        else:
+            result[level] = result[level] + node.value
         for i in node.left_child, node.right_child:
             if i is not None:
                 level_assignment(i, level + 1)
 
     level_assignment(tree.root)
-
-    max_level: int = 0
-    for i in assigned:
-        if i[1] > max_level:
-            max_level = i[1]
-
-    result: List[Any] = [None] * (max_level + 1)
-
-    # I know this is longer than list comprehension
-    # but it works for str flawlessly
-
-    for i in range(0, max_level + 1):
-        tmp: Any = None
-        for ele in assigned:
-            if ele[1] == i:
-                if tmp is not None:
-                    tmp += ele[0].value
-                else:
-                    tmp = ele[0].value
-
-        result[i] = tmp
     return result
 
 
